@@ -74,12 +74,13 @@ class TournamentInstitution(models.Model):
     teams_requested = models.PositiveIntegerField(
         verbose_name=_("Team slots requested"),
     )
-    teams_allocated = models.PositiveIntegerField(verbose_name=_("Team slots allocated"))
+    teams_allocated = models.PositiveIntegerField(verbose_name=_("Team slots allocated"), default=0)
     adjudicators_requested = models.PositiveIntegerField(
         verbose_name=_("Adjudicator slots requested"),
     )
     adjudicators_allocated = models.PositiveIntegerField(
         verbose_name=_("Adjudicator slots allocated"),
+        default=0,
     )
 
     answers = GenericRelation(Answer)
@@ -92,7 +93,7 @@ class TournamentInstitution(models.Model):
         verbose_name_plural = _("tournament institutions")
 
     def __str__(self):
-        return "%s (%s)" % (self.name, self.tournament.short_name)
+        return "%s (%s)" % (self.institution.name, self.tournament.short_name)
 
 
 class SpeakerCategory(models.Model):
@@ -189,10 +190,10 @@ class Coach(Person):
         verbose_name_plural = _("coaches")
 
     def __str__(self):
-        if self.institution is None:
+        if self.tournament_institution.institution is None:
             return self.name
         else:
-            return "%s (%s)" % (self.name, self.institution.code)
+            return "%s (%s)" % (self.name, self.tournament_institution.institution.code)
 
     @property
     def region(self):
