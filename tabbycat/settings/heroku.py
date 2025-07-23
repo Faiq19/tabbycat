@@ -23,6 +23,11 @@ if environ.get('DJANGO_SECRET_KEY', ''):
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://manzil-e-mantaq-09bf33ff7520.herokuapp.com',
+]
+
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
